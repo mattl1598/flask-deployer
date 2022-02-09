@@ -2,7 +2,6 @@ from flask import abort, make_response, redirect, render_template, send_file, ur
 from webapp import app
 import json, os
 
-
 @app.route('/')
 def frontpage():
 	conf_path = app.basedir + "/config.json"
@@ -19,8 +18,11 @@ def frontpage():
 
 @app.route("/test")
 def test():
-	output = os.system("service open-amdram-portal status")
-	return output
+	output = int(os.system("service open-amdram-portal status"))
+	if output == 0:
+		return "Running"
+	else:
+		return "Dead"
 
 
 @app.route("/css/<string:filename>", methods=["GET"])
