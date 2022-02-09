@@ -1,6 +1,11 @@
-from flask import abort, make_response, redirect, render_template, send_file, url_for, jsonify
+import json
+import os
+import subprocess
+
+from flask import make_response, render_template, send_file
+
 from webapp import app
-import json, os
+
 
 @app.route('/')
 def frontpage():
@@ -18,7 +23,7 @@ def frontpage():
 
 @app.route("/test")
 def test():
-	output = int(os.system("service open-amdram-portal status"))
+	output = int(subprocess.run("service open-amdram-portal status"))
 	if output == 0:
 		return "Running"
 	else:
