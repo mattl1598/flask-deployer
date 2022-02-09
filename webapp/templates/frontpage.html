@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="projects_overview">
+	<div class="projects_menu">
+		<ul>
+			<li>
+				<h3>Projects</h3>
+			</li>
+			<li>
+				<button class="add_project" type="button">
+				Add Project
+				</button>
+			</li>
+		</ul>
+	</div>
+	<div class="projects_list">
+		{% if len(projects) %}
+			{% for projectname, obj in projects.items() %}
+				<div class="project">
+					{{ projectname }}
+{#					Git Repo: {{ obj["git_repo"] }}#}
+					<div class="project_buttons">
+						<button class="start_stop" type="button">
+							Start/Stop
+						</button>
+						<button class="restart" type="button">
+							Restart
+						</button>
+						<button class="restart" type="button">
+							Edit
+						</button>
+					</div>
+					{{ "<hr>" if not loop.last }}
+				</div>
+			{% endfor %}
+		{% else %}
+			<div class="projects_empty">
+				<h3>This section looks a bit empty.</h3>
+				<p>Why not add a project?</p>
+				<button class="add_project" type="button">
+					Add Project
+				</button>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

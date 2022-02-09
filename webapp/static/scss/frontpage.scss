@@ -1,0 +1,59 @@
+body {
+	background-color: #1a1a1a;
+	font-family: 'Poppins', sans-serif;
+	color: white;
+}
+
+div.projects_overview {
+	width: 90%;
+	margin: auto;
+	border: 2px solid #6a7277;
+	border-radius: 4px;
+	background-color: #242729;
+}
+
+div.project {
+	padding: 1.5ch 1.5ch;
+	display: flex;
+	flex-direction: row;
+
+	justify-content: space-between;
+	align-items: center;
+}
+
+div.projects_menu ul {
+	background-color: #454b4f;
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	//width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 2%;
+	margin: 0;
+
+	li {
+		padding: 0;
+	}
+
+	h3 {
+		margin: 0;
+		padding: 1ch;
+	}
+}
+
+div.projects_empty {
+	text-align: center;
+	padding-bottom: 2ch;
+}
+
+button.add_project {
+	padding: 0.7ch 1.2ch;
+	background-color: #6f6f6f;
+	color: white;
+	font-weight: bold;
+	border: 2px solid #969696;
+	border-bottom: 2px solid #303030;
+	border-right: 2px solid #303030;
+	border-radius: 7px;
+}
