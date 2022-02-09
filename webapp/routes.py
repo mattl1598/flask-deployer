@@ -1,6 +1,6 @@
-from flask import abort, make_response, redirect, render_template, send_file, url_for
+from flask import abort, make_response, redirect, render_template, send_file, url_for, jsonify
 from webapp import app
-import json
+import json, os
 
 
 @app.route('/')
@@ -15,6 +15,12 @@ def frontpage():
 		css="frontpage.css",
 		projects=projects
 	)
+
+
+@app.route("/test")
+def test():
+	output = os.system("service open-amdram-portal status")
+	return output
 
 
 @app.route("/css/<string:filename>", methods=["GET"])
