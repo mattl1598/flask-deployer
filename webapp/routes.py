@@ -23,8 +23,12 @@ def frontpage():
 
 @app.route("/test")
 def test():
-	output = subprocess.check_output(["service", "open-amdram-portal", "status"])
-	return output
+	output = subprocess.run(['service', 'open-amdram-portal', 'status'], capture_output=True)[2]
+	if "Active: inactive (dead)" in output:
+		return "Dead"
+	else:
+		uptime = output[output.index("; ")+2:]
+		return "Alive" + uptime
 	# if output == 0:
 	# 	return "Running"
 	# else:
