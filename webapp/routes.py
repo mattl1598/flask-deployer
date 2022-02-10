@@ -23,7 +23,7 @@ def frontpage():
 
 @app.route("/test")
 def test():
-	output = subprocess.check_output("service open-amdram-portal status")
+	output = subprocess.check_output(["service", "open-amdram-portal", "status"])
 	return output
 	# if output == 0:
 	# 	return "Running"
