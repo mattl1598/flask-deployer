@@ -23,11 +23,12 @@ def frontpage():
 
 @app.route("/test")
 def test():
-	output = int(subprocess.run("service open-amdram-portal status"))
-	if output == 0:
-		return "Running"
-	else:
-		return "Dead"
+	output = subprocess.check_output("service open-amdram-portal status")
+	return output
+	# if output == 0:
+	# 	return "Running"
+	# else:
+	# 	return "Dead"
 
 
 @app.route("/css/<string:filename>", methods=["GET"])
