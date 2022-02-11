@@ -71,7 +71,7 @@ def update(project):
 		config = json.load(conf)
 	projects = config["projects"]
 	if project in projects.keys():
-		output = subprocess.run(['git', '-C', projects[project]["path"], 'pull'])
+		output = subprocess.run(['/usr/bin/git', '-C', projects[project]["path"], 'pull'])
 		return redirect(url_for('frontpage'))
 	else:
 		abort(404)
