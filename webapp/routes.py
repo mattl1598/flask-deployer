@@ -26,9 +26,13 @@ def frontpage():
 		# command that only works on Linux
 		for project in projects.keys():
 			output = subprocess.run(['/bin/systemctl', 'status', project], capture_output=True)
-			status_split = str(output.stdout).splitlines()
-			print(len(status_split))
-			status_line = status_split[2]
+			try:
+				status_split = str(output.stdout).splitlines()
+				print(len(status_split))
+				status_line = status_split[2]
+			except IndexError:
+				print("error")
+				return str(str(len(status_split)) + " " + str(status_split))
 			status = int("Active: inactive (dead)" in status_line)
 			projects[project]["status"] = status
 
