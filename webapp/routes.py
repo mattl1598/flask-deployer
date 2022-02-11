@@ -37,7 +37,7 @@ def frontpage():
 			projects[project]["status"] = status
 
 			if not status:
-				uptime = status_line[status_line.index("; ") + 2:-5]
+				uptime = status_line[status_line.index("; ") + 2:-4]
 				projects[project]["uptime"] = uptime
 	else:
 		# emulating command output when not running on Linux
@@ -87,7 +87,7 @@ def start(command, project):
 			config = json.load(conf)
 		projects = config["projects"]
 		if project in projects.keys():
-			cmd1 = subprocess.Popen(['echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
+			cmd1 = subprocess.Popen(['/bin/echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
 			subprocess.run(['sudo', '-S', '/bin/systemctl', command, project], stdin=cmd1.stdout)
 			return redirect(url_for('frontpage'))
 		else:
