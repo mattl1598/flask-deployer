@@ -88,7 +88,7 @@ def start(command, project):
 		projects = config["projects"]
 		if project in projects.keys():
 			cmd1 = subprocess.Popen(['/bin/echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
-			subprocess.run(['sudo', '-S', '/bin/systemctl', command, project], stdin=cmd1.stdout)
+			subprocess.run(['/usr/bin/sudo', '-S', '/bin/systemctl', command, project], stdin=cmd1.stdout)
 			return redirect(url_for('frontpage'))
 		else:
 			abort(404)
