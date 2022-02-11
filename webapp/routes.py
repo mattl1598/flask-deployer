@@ -27,7 +27,7 @@ def frontpage():
 		for project in projects.keys():
 			output = subprocess.run(['/bin/systemctl', 'status', project], capture_output=True)
 			try:
-				status_split = str(output.stdout).splitlines()
+				status_split = output.stdout.decode('utf-8').splitlines()
 				print(len(status_split))
 				status_line = status_split[2]
 			except IndexError:
