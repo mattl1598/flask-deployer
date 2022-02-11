@@ -1,6 +1,7 @@
 {
   "secrets": {
-	"psw_hash": ""
+	"psw_hash": "",
+	"projects_folder": ""
   },
   "projects": {
   }
