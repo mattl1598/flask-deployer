@@ -122,4 +122,4 @@ def css(filename):
 
 @app.route("/millis", methods=["GET"])
 def millis():
-	return int(round(time.time() * 1000))
+	return str(round(time.time() * 1000))
