@@ -7,3 +7,6 @@ libsass==0.21.0
 MarkupSafe==2.0.1
 six==1.16.0
 Werkzeug==2.0.3
+flask_wtf
+WTForms~=3.0.1
+pyotp~=2.6.0

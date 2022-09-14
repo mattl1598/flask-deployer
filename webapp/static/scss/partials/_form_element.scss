@@ -1,0 +1,94 @@
+@import "variables";
+
+div.fancy-input {
+	position: relative;
+	//width: 90%;
+	width: 100%;
+
+	select, input, textarea {
+		margin: 0.01ch;
+		width: 100%;
+		border: 2px solid grey;
+		background: none;
+		position: relative;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		padding: 12px 12px 12px 12px;
+		outline: 0;
+		box-sizing: border-box;
+		border-radius: 7px;
+
+		&[type=submit] {
+			width: 50%;
+			cursor: pointer;
+		}
+
+		&[type=date]:invalid {
+			color: #00000000;
+		}
+
+
+		&[type="date"]::-webkit-calendar-picker-indicator {
+			background: transparent;
+			bottom: 0;
+			color: transparent;
+			cursor: pointer;
+			height: auto;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: auto;
+		}
+
+		&:focus,
+		&:not([type=text]):valid,
+		&[type=text]:not(:placeholder-shown) {
+			background: white;
+			@include theme(border-color, accent2);
+		}
+
+		&:focus + label,
+		&:not([type=text]):valid + label,
+		&[type=text]:not(:placeholder-shown) + label {
+			@include theme(color, text);
+			font-size: 70%;
+			padding-left: 1.2ch;
+			padding-top: 0;
+			z-index: 2;
+			text-transform: uppercase;
+			bottom: 100%;
+			margin-top: -2ch;
+		}
+	}
+
+	label {
+		transition:
+				background 0.2s,
+				color 0.2s,
+				top 0.2s,
+				bottom 0.2s,
+				right 0.2s,
+				left 0.2s,
+				padding 0.2s;
+		position: absolute;
+		color: #999;
+		padding-left: 1.5ch;
+		padding-top: 1.4ch;
+		top: 0;
+		text-align: center;
+		margin: auto;
+
+		&.showme {
+			@include theme(color, text);
+			font-size: 70%;
+			padding-left: 1.2ch;
+			padding-top: 0;
+			z-index: 2;
+			text-transform: uppercase;
+			bottom: 100%;
+			margin-top: -2ch;
+		}
+	}
+}

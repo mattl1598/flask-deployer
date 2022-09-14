@@ -1,11 +1,14 @@
 from flask import Flask
 import os
 from sass import compile
+import platform
 
 basedir = os.getcwd()
 print(basedir)
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "test"
+app.config['HOSTNAME'] = platform.node()
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{basedir}/dev.db"
 app.basedir = basedir

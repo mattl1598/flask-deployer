@@ -1,0 +1,73 @@
+$dark: (
+	accent1: #cd4a46,
+	accent2: #3CB5B9,
+	bg0: #1D1D1D,
+	bg1: #272727,
+	bg2: #3b3b3b,
+	bg3: #454545,
+	bg4: #585858,
+	text: white,
+	inv_text: white,
+);
+$light: (
+	accent1: #cd4a46,
+	accent2: #3CB5B9,
+	bg0: #DEDEDE,
+	bg1: #FFFFFF,
+	bg2: #DADADA,
+	bg3: #C0C0C0,
+	bg4: #a4a4a4,
+	text: #282828,
+	inv_text: white,
+);
+
+@mixin theme($element, $colour, $extra_bits: "") {
+	@media all and (prefers-color-scheme: light) {
+		html.auto &, html.light & {
+			#{$element}: #{$extra_bits} colour($light, $colour);
+		}
+		html.dark & {
+			#{$element}: #{$extra_bits} colour($dark, $colour);
+		}
+	}
+	@media all and (prefers-color-scheme: dark) {
+		html.auto &, html.dark & {
+			#{$element}: #{$extra_bits} colour($dark, $colour);
+		}
+		html.light & {
+			#{$element}: #{$extra_bits} colour($light, $colour);
+		}
+	}
+}
+
+@mixin theme-adjust($element, $colour, $adjust, $arg, $extra_bits: "") {
+	@media all and (prefers-color-scheme: light) {
+		html.auto &, html.light & {
+			#{$element}: #{$extra_bits} call(get-function($adjust), colour($light, $colour), $arg);
+		}
+		html.dark & {
+			#{$element}: #{$extra_bits} call(get-function($adjust), colour($dark, $colour), $arg);
+		}
+	}
+	@media all and (prefers-color-scheme: dark) {
+		html.auto &, html.light & {
+			#{$element}: #{$extra_bits} call(get-function($adjust), colour($dark, $colour), $arg);
+		}
+		html.dark & {
+			#{$element}: #{$extra_bits} call(get-function($adjust), colour($light, $colour), $arg);
+		}
+	}
+}
+
+
+@function colour($colours, $name) {
+	$response: map-get($colours, $name);
+
+	@if ($response) {
+		@return $response;
+	}
+
+	@warn #{'Colour "' + $name + '" not found in $colours'};
+
+	@return $response;
+}

@@ -1,23 +1,4 @@
-body {
-	background-color: #1a1a1a;
-	font-family: 'Poppins', sans-serif;
-	color: white;
-}
-
-div.page_title {
-	svg {
-		height: 5ch;
-		padding-right: 2ch;
-	}
-
-	width: 87%;
-	margin: auto;
-
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-}
+@import "partials/layout";
 
 div.projects_overview {
 	width: 90%;

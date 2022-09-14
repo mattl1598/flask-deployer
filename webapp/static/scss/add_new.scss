@@ -1,0 +1,10 @@
+@import "partials/layout";
+@import "partials/form_element";
+
+form {
+	width: 60ch;
+
+	display: flex;
+	flex-direction: column;
+	gap: 1.5ch;
+}

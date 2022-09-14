@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<form method="post" action="">
+		<div class="fancy-input">
+			{{ form.project_name }}
+			{{ form.project_name.label }}
+		</div>
+		<div class="fancy-input">
+			{{ form.git_repo }}
+			{{ form.git_repo.label }}
+		</div>
+		<div class="fancy-input">
+			{{ form.git_branch }}
+			{{ form.git_branch.label }}
+		</div>
+
+		{{ form.submit }}
+	</form>
+{% endblock %}
