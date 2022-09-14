@@ -3,7 +3,7 @@ import os
 import random
 import subprocess
 import platform
-
+import time
 from jinja2 import Template
 from flask import abort, make_response, redirect, render_template, request, send_file, url_for
 
@@ -185,3 +185,8 @@ def css(filename):
 	response = make_response(send_file(fp.replace("\\", "/")))
 	response.headers['mimetype'] = 'text/css'
 	return response
+
+
+@app.route("/millis", methods=["GET"])
+def millis():
+	return str(round(time.time() * 1000))
