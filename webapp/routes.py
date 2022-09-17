@@ -31,10 +31,11 @@ def frontpage():
 				status_split = output.stdout.decode('utf-8').splitlines()
 				print(len(status_split))
 				status_line = status_split[2]
+				status = int("Active: inactive (dead)" in status_line)
 			except IndexError:
-				print("error")
-				return str(str(len(status_split)) + " " + str(status_split))
-			status = int("Active: inactive (dead)" in status_line)
+				# print("error")
+				# return str(str(len(status_split)) + " " + str(status_split))
+				status = 1
 			projects[project]["status"] = status
 
 			if not status:
@@ -120,7 +121,7 @@ def add_new():
 		subprocess.run(cmd, check=True)
 
 		# add project to config
-		config[project_name] = {
+		config["projects"][project_name] = {
 			"git_repo": git_repo,
 			"branch": git_branch,
 			"path": f'{config["secrets"]["projects_folder"]}/{project_name}'
