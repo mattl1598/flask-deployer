@@ -79,7 +79,7 @@ def add_new():
 		project_name = request.form.get("project_name")
 		git_repo = request.form.get("git_repo")
 		git_branch = request.form.get("git_branch")
-		urls = request.form.get("urls")
+		urls = request.form.get("urls").splitlines()
 
 		if project_name in projects.keys():
 			abort(500)
@@ -126,7 +126,7 @@ def add_new():
 			"git_repo": git_repo,
 			"branch": git_branch,
 			"path": f'{config["secrets"]["projects_folder"]}/{project_name}',
-			"urls": " ".join(urls.splitlines())
+			"urls": urls
 		}
 
 		with open(conf_path, 'w') as conf:
@@ -161,7 +161,7 @@ def add_new():
 		)
 
 		cmd = [
-			"/bin/echo", f"'{nginx_file}'", "|",
+			"/bin/echo", f'"{nginx_file}"', "|",
 			"/usr/bin/sudo", "/usr/bin/tee", f'/etc/nginx/sites-available/{project_name}',
 			">",  "/dev/null"
 		]
