@@ -25,4 +25,11 @@ class AddNewProject(FlaskForm):
 		},
 		validators=[DataRequired()],
 	)
+	urls = TextAreaField(
+		'Sub-Domains for Project',
+		render_kw={
+			"placeholder": " "
+		},
+		validators=[DataRequired()],
+	)
 	submit = SubmitField('Submit')

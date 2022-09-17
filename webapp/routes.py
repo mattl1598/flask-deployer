@@ -79,10 +79,11 @@ def add_new():
 		project_name = request.form.get("project_name")
 		git_repo = request.form.get("git_repo")
 		git_branch = request.form.get("git_branch")
+		urls = request.form.get("urls")
 
 		if project_name in projects.keys():
 			abort(500)
-			# TODO: add exception handling for duplicate project names
+			# TODO: add transparent exception handling for duplicate project names
 
 		# setup for sudo commands
 		cmd1 = subprocess.Popen(['/bin/echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
@@ -124,11 +125,59 @@ def add_new():
 		config["projects"][project_name] = {
 			"git_repo": git_repo,
 			"branch": git_branch,
-			"path": f'{config["secrets"]["projects_folder"]}/{project_name}'
+			"path": f'{config["secrets"]["projects_folder"]}/{project_name}',
+			"urls": " ".join(urls.splitlines())
 		}
 
 		with open(conf_path, 'w') as conf:
 			json.dump(config, conf)
+
+		# add service file
+		with open(app.basedir + "/config_templates/service", "r") as file:
+			t = Template(file.read())
+
+		service_file = t.render(
+			path=f'{config["secrets"]["projects_folder"]}/{project_name}',
+			user=config["secrets"]["install_username"],
+			project_name=project_name
+		)
+
+		cmd = [
+			"/bin/echo", f"'{service_file}'", "|",
+			"/usr/bin/sudo", "/usr/bin/tee", f'/etc/systemd/system/{project_name}.service',
+			">",  "/dev/null"
+		]
+
+		subprocess.run(cmd, check=True, stdin=cmd1.stdout)
+
+		# create nginx config
+		with open(app.basedir + "/config_templates/nginx", "r") as file:
+			t = Template(file.read())
+
+		nginx_file = t.render(
+			urls=" ".join(config["projects"][project_name]["urls"]),
+			path=f'{config["secrets"]["projects_folder"]}/{project_name}',
+			project_name=project_name
+		)
+
+		cmd = [
+			"/bin/echo", f"'{nginx_file}'", "|",
+			"/usr/bin/sudo", "/usr/bin/tee", f'/etc/nginx/sites-available/{project_name}',
+			">",  "/dev/null"
+		]
+
+		subprocess.run(cmd, check=True, stdin=cmd1.stdout)
+
+		# enable nginx site
+		cmd = [
+			'/usr/bin/sudo', '-S',
+			"/bin/ln", "-s",
+			f"/etc/nginx/sites-available/{project_name}",
+			"/etc/nginx/sites-enabled"
+		]
+		subprocess.run(cmd, check=True, stdin=cmd1.stdout)
+
+		return redirect(f"/start/{project_name}")
 
 
 @app.route("/setup", methods=['GET', 'POST'])
