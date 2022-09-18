@@ -10,6 +10,12 @@ from flask import abort, make_response, redirect, render_template, request, send
 from webapp import app
 from webapp.forms import AddNewProject
 
+import os
+
+
+def opener(path, flags):
+	return os.open(path, flags, 0o777)
+
 
 @app.route('/')
 def frontpage():
@@ -142,19 +148,9 @@ def add_new():
 			project_name=project_name
 		)
 
-		# cmd = [
-		# 	"/bin/echo", f"'{service_file}'", "|",
-		# 	"/usr/bin/sudo", "/usr/bin/tee", f'/etc/systemd/system/{project_name}.service',
-		# 	">",  "/dev/null"
-		# ]
-		cmd = [
-			"/bin/echo", f"'{service_file}'", "|",
-			"/usr/bin/sudo", "/usr/bin/tee", f'/home/mattl1598/.config/systemd/user/{project_name}.service',
-			">",  "/dev/null"
-		]
-
-		cmd1 = subprocess.Popen(['/bin/echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
-		subprocess.run(cmd, check=True, stdin=cmd1.stdout)
+		os.umask(0)  # Without this, the created file will have 0o777 - 0o022 (default umask) = 0o755 permissions
+		with open(f"/home/mattl1598/.config/systemd/user/{project_name}.service", "w", opener=opener) as f:
+			f.write(service_file)
 
 		# create nginx config
 		with open(app.basedir + "/config_templates/nginx", "r") as file:
