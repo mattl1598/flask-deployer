@@ -149,7 +149,7 @@ def add_new():
 		)
 
 		os.umask(0)  # Without this, the created file will have 0o777 - 0o022 (default umask) = 0o755 permissions
-		with open(f"/home/mattl1598/.config/systemd/user/{project_name}.service", "w", opener=opener) as f:
+		with open(f"/etc/systemd/system/{project_name}.service", "w", opener=opener) as f:
 			f.write(service_file)
 
 		# create nginx config
