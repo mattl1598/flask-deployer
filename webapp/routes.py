@@ -153,6 +153,7 @@ def add_new():
 			">",  "/dev/null"
 		]
 
+		cmd1 = subprocess.Popen(['/bin/echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
 		subprocess.run(cmd, check=True, stdin=cmd1.stdout)
 
 		# create nginx config
