@@ -142,9 +142,14 @@ def add_new():
 			project_name=project_name
 		)
 
+		# cmd = [
+		# 	"/bin/echo", f"'{service_file}'", "|",
+		# 	"/usr/bin/sudo", "/usr/bin/tee", f'/etc/systemd/system/{project_name}.service',
+		# 	">",  "/dev/null"
+		# ]
 		cmd = [
 			"/bin/echo", f"'{service_file}'", "|",
-			"/usr/bin/sudo", "/usr/bin/tee", f'/etc/systemd/system/{project_name}.service',
+			"/usr/bin/sudo", "/usr/bin/tee", f'/home/mattl1598/.config/systemd/user/{project_name}.service',
 			">",  "/dev/null"
 		]
 
@@ -166,6 +171,7 @@ def add_new():
 			">",  "/dev/null"
 		]
 
+		cmd1 = subprocess.Popen(['/bin/echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
 		subprocess.run(cmd, check=True, stdin=cmd1.stdout)
 
 		# enable nginx site
