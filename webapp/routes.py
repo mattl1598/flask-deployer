@@ -162,14 +162,9 @@ def add_new():
 			project_name=project_name
 		)
 
-		cmd = [
-			"/bin/echo", f'"{nginx_file}"', "|",
-			"/usr/bin/sudo", "/usr/bin/tee", f'/etc/nginx/sites-available/{project_name}',
-			">",  "/dev/null"
-		]
-
-		cmd1 = subprocess.Popen(['/bin/echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
-		subprocess.run(cmd, check=True, stdin=cmd1.stdout)
+		os.umask(0)  # Without this, the created file will have 0o777 - 0o022 (default umask) = 0o755 permissions
+		with open(f'/etc/nginx/sites-available/{project_name}', "w", opener=opener) as f:
+			f.write(nginx_file)
 
 		# enable nginx site
 		cmd = [
