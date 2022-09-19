@@ -204,11 +204,38 @@ def start(command, project):
 			return redirect(url_for('frontpage'))
 		elif command == "update":
 			output = subprocess.run(['/usr/bin/git', '-C', projects[project]["path"], 'pull'])
+
+			cmd = [
+				f'{projects[project]["path"]}/venv/bin/python3',
+				"-m",
+				"pip",
+				"install",
+				"-r",
+				f'{config["secrets"]["projects_folder"]}/{project}/requirements.txt'
+			]
+			print(" ".join(cmd))
+			subprocess.run(cmd, check=True)
 			return redirect(url_for('frontpage'))
 		else:
 			abort(403)
 	else:
 		abort(404)
+
+
+@app.get("/logs/<project>")
+def logs(project):
+	conf_path = app.basedir + "/config.json"
+	with open(conf_path, 'r') as conf:
+		config = json.load(conf)
+	projects = config["projects"]
+
+	if project in projects.keys():
+		return subprocess.run([
+			'/bin/journalctl',
+			'-S', '-23:59:59',
+			'-o', 'short-iso',
+			'-u', project
+		], check=True)
 
 
 @app.route("/test")
