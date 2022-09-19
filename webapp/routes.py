@@ -235,7 +235,7 @@ def logs(project):
 			'-S', '-24h',
 			'-o', 'short-iso',
 			'-u', project
-		], check=True)
+		], check=True, text=True).stdout
 
 
 @app.route("/test")
