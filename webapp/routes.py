@@ -232,7 +232,7 @@ def logs(project):
 	if project in projects.keys():
 		return subprocess.run([
 			'/bin/journalctl',
-			'-S', '-23:59:59',
+			'-S', '-24h',
 			'-o', 'short-iso',
 			'-u', project
 		], check=True)
