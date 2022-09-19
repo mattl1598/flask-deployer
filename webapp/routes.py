@@ -211,7 +211,7 @@ def start(command, project):
 				"pip",
 				"install",
 				"-r",
-				f'{config["secrets"]["projects_folder"]}/{project}/requirements.txt'
+				f'{projects[project]["path"]}/requirements.txt'
 			]
 			print(" ".join(cmd))
 			subprocess.run(cmd, check=True)
