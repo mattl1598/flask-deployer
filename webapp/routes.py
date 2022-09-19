@@ -230,12 +230,13 @@ def logs(project):
 	projects = config["projects"]
 
 	if project in projects.keys():
-		return subprocess.run([
+		proc = subprocess.run([
 			'/bin/journalctl',
 			'-S', '-24h',
 			'-o', 'short-iso',
 			'-u', project
-		], check=True)
+		], check=True, text=True)
+		return str(proc.stdout)
 
 
 @app.route("/test")
