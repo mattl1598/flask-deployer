@@ -245,7 +245,7 @@ def logs(project):
 			css="logs.css",
 			project_name=project,
 			logs=str(proc.stdout).split("\\n")[2:-1],
-			log_length=len(str(proc.stdout).split("\\n"))
+			log_length=len(str(proc.stdout).split("\\n")[2:-1])
 		)
 
 

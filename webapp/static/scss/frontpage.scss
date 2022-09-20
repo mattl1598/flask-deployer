@@ -1,5 +1,19 @@
 @import "partials/layout";
 
+button.button {
+	padding: 0;
+	aspect-ratio: 1;
+	height: auto;
+}
+
+svg.icon {
+	width: 3ch;
+	//height: 3ch;
+	fill: black;
+	stroke: black;
+	aspect-ratio: 1;
+}
+
 div.projects_overview {
 	width: 90%;
 	margin: auto;
