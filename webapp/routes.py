@@ -35,7 +35,7 @@ def frontpage():
 			output = subprocess.run(['/bin/systemctl', 'status', project], capture_output=True)
 			try:
 				status_split = output.stdout.decode('utf-8').splitlines()
-				print(len(status_split))
+				# print(len(status_split))
 				status_line = status_split[2]
 				status = int("Active: inactive (dead)" in status_line)
 			except IndexError:
@@ -77,7 +77,7 @@ def add_new():
 	elif request.method == "POST":
 		# noinspection PyUnresolvedReferences
 		conf_path = app.basedir + "/config.json"
-		print(conf_path := conf_path.replace("\\", "/"))
+		# print(conf_path := conf_path.replace("\\", "/"))
 		with open(conf_path, 'r') as conf:
 			config = json.load(conf)
 		projects = config["projects"]
@@ -103,7 +103,7 @@ def add_new():
 			git_repo,
 			f'{config["secrets"]["projects_folder"]}/{project_name}'
 		]
-		print(" ".join(cmd))
+		# print(" ".join(cmd))
 		subprocess.run(cmd, check=True)
 
 		# configure venv
@@ -113,7 +113,7 @@ def add_new():
 			"venv",
 			f'{config["secrets"]["projects_folder"]}/{project_name}/venv'
 		]
-		print(" ".join(cmd))
+		# print(" ".join(cmd))
 		subprocess.run(cmd, check=True)
 
 		cmd = [
@@ -124,7 +124,7 @@ def add_new():
 			"-r",
 			f'{config["secrets"]["projects_folder"]}/{project_name}/requirements.txt'
 		]
-		print(" ".join(cmd))
+		# print(" ".join(cmd))
 		subprocess.run(cmd, check=True)
 
 		# add project to config
@@ -192,7 +192,7 @@ def setup():
 def start(command, project):
 	valid_commands = ["start", "stop", "restart"]
 	conf_path = app.basedir + "/config.json"
-	print(conf_path := conf_path.replace("\\", "/"))
+	# print(conf_path := conf_path.replace("\\", "/"))
 	with open(conf_path, 'r') as conf:
 		config = json.load(conf)
 	projects = config["projects"]
@@ -213,7 +213,7 @@ def start(command, project):
 				"-r",
 				f'{projects[project]["path"]}/requirements.txt'
 			]
-			print(" ".join(cmd))
+			# print(" ".join(cmd))
 			subprocess.run(cmd, check=True)
 			return redirect(url_for('frontpage'))
 		else:
@@ -228,11 +228,15 @@ def logs(project):
 	with open(conf_path, 'r') as conf:
 		config = json.load(conf)
 	projects = config["projects"]
+	if "h" in request.args.keys():
+		hours = request.args.get("h")
+	else:
+		hours = 4
 
 	if project in projects.keys():
 		proc = subprocess.run([
 			'/bin/journalctl',
-			'-S', '-24h',
+			'-S', f'-{hours}h',
 			'-o', 'short-iso',
 			'-u', project
 		], check=True, capture_output=True)

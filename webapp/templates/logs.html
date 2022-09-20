@@ -3,8 +3,10 @@
 
 	<h2>Logs for {{ project_name }}</h2>
 
-	{% for line in logs %}
-		<p>{{ line }}</p>
-	{% endfor %}
+	<div class="logs">
+		{% for line in logs %}
+			<p>{{ line }}</p>
+		{% endfor %}
+	</div>
 
 {% endblock %}

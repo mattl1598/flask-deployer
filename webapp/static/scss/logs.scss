@@ -1,0 +1,9 @@
+@import "partials/layout";
+@import "partials/form_element";
+
+div.logs {
+	height: 50ch;
+	width: 80%;
+	overflow-wrap: break-word;
+	overflow-y: scroll;
+}
