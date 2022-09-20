@@ -1,9 +1,10 @@
 @import "partials/layout";
 
 button.button {
-	padding: 0;
+	padding: 0.2ch;
 	aspect-ratio: 1;
 	height: auto;
+	border-radius: 0.5ch;
 }
 
 svg.icon {
@@ -12,6 +13,7 @@ svg.icon {
 	fill: black;
 	stroke: black;
 	aspect-ratio: 1;
+	display: block;
 }
 
 div.projects_overview {
