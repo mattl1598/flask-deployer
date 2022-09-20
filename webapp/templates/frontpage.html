@@ -27,11 +27,11 @@
 						{% endif %}
 					</div>
 
-					<div class="version">
-						<span>v:{{ obj["version"][1] }}</span>
-					</div>
+{#					<div class="version">#}
+{#					</div>#}
 {#					Git Repo: {{ obj["git_repo"] }}#}
 					<div class="project_buttons">
+						<span>v:{{ obj["version"][1] }}</span>
 						<button class="start_stop button" type="button" onclick="window.location.href='/{{ ["stop", "start"][obj["status"]] }}/{{ projectname }}'">
 {#							{{ ["Stop", "Start"][obj["status"]] }}#}
 							{% if obj["status"] == 0 %}
