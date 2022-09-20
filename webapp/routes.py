@@ -37,7 +37,7 @@ def frontpage():
 				status_split = output.stdout.decode('utf-8').splitlines()
 				# print(len(status_split))
 				status_line = status_split[2]
-				status = int("Active: inactive (dead)" in status_line)
+				status = int("Active: inactive (dead)" in status_line or "Active: failed" in status_line)
 			except IndexError:
 				# print("error")
 				# return str(str(len(status_split)) + " " + str(status_split))
@@ -89,7 +89,7 @@ def add_new():
 
 		if project_name in projects.keys():
 			abort(500)
-			# TODO: add transparent exception handling for duplicate project names
+		# TODO: add transparent exception handling for duplicate project names
 
 		# setup for sudo commands
 		cmd1 = subprocess.Popen(['/bin/echo', config["secrets"]["sudo_psw"]], stdout=subprocess.PIPE)
@@ -204,6 +204,12 @@ def start(command, project):
 			return redirect(url_for('frontpage'))
 		elif command == "update":
 			output = subprocess.run(['/usr/bin/git', '-C', projects[project]["path"], 'pull'])
+			output = subprocess.run([
+				'/usr/bin/git', '-C', projects[project]["path"],
+				'rev-parse', '--short', 'HEAD'
+			], capture_output=True)
+
+			config["projects"][project]["version"][1] = output.stdout.decode('UTF-8')
 
 			cmd = [
 				f'{projects[project]["path"]}/venv/bin/python3',
@@ -262,7 +268,9 @@ def test():
 	with open(app.basedir + "/test", "w") as file:
 		file.write(output)
 	return output
-	# abort(404)
+
+
+# abort(404)
 
 
 @app.route("/css/<string:filename>", methods=["GET"])

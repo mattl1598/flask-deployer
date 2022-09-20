@@ -4,7 +4,7 @@ from sass import compile
 import platform
 
 basedir = os.getcwd()
-print(basedir)
+# print(basedir)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "test"

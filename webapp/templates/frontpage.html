@@ -26,6 +26,10 @@
 							<span class="dead_project"> ● Dead </span>
 						{% endif %}
 					</div>
+
+					<div class="version">
+						<span>v{{ obj["version"][1] }}</span>
+					</div>
 {#					Git Repo: {{ obj["git_repo"] }}#}
 					<div class="project_buttons">
 						<button class="start_stop button" type="button" onclick="window.location.href='/{{ ["stop", "start"][obj["status"]] }}/{{ projectname }}'">
