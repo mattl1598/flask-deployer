@@ -136,7 +136,7 @@ def add_new():
 		}
 
 		with open(conf_path, 'w') as conf:
-			json.dump(config, conf)
+			json.dump(config, conf, indent='\t')
 
 		# add service file
 		with open(app.basedir + "/config_templates/service", "r") as file:
