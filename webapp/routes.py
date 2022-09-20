@@ -211,6 +211,9 @@ def start(command, project):
 
 			config["projects"][project]["version"][1] = output.stdout.decode('UTF-8')
 
+			with open(conf_path, 'w') as conf:
+				json.dump(config, conf, indent='\t')
+
 			cmd = [
 				f'{projects[project]["path"]}/venv/bin/python3',
 				"-m",
