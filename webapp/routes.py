@@ -242,9 +242,10 @@ def logs(project):
 		], check=True, capture_output=True)
 		return render_template(
 			"logs.html",
-			css="frontpage.css",
+			css="logs.css",
 			project_name=project,
-			logs=str(proc.stdout).split("\\n")
+			logs=str(proc.stdout).split("\\n"),
+			log_length=len(str(proc.stdout).split("\\n"))
 		)
 
 

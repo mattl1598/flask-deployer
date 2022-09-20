@@ -6,4 +6,8 @@ div.logs {
 	width: 80%;
 	overflow-wrap: break-word;
 	overflow-y: scroll;
+
+	padding: 1ch;
+	border: 2px solid white;
+	border-radius: 0.5ch;
 }

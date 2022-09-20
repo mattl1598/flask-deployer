@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-	<h2>Logs for {{ project_name }}</h2>
+	<h2>Logs for {{ project_name }} ({{ log_length }} lines)</h2>
 
 	<div class="logs">
 		{% for line in logs %}
