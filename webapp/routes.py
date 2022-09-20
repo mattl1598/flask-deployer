@@ -236,7 +236,7 @@ def logs(project):
 			'-o', 'short-iso',
 			'-u', project
 		], check=True, capture_output=True)
-		return str(proc.stdout)
+		return str(proc.stdout.decode('utf-8'))
 
 
 @app.route("/test")
