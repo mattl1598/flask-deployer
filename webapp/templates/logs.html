@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+	<h2>Logs for {{ project_name }}</h2>
+
+	{% for line in logs %}
+		{{ line }}
+	{% endfor %}
+
+{% endblock %}

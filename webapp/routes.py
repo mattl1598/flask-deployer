@@ -236,7 +236,11 @@ def logs(project):
 			'-o', 'short-iso',
 			'-u', project
 		], check=True, capture_output=True)
-		return str(proc.stdout.decode('utf-8'))
+		return render_template(
+			"logs.html",
+			project_name=project,
+			logs=str(proc.stdout.decode('utf-8')).splitlines()
+		)
 
 
 @app.route("/test")
