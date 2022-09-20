@@ -235,7 +235,7 @@ def logs(project):
 			'-S', '-24h',
 			'-o', 'short-iso',
 			'-u', project
-		], check=True, capture_output=True, text=True)
+		], check=True, capture_output=True)
 		return str(proc.stdout)
 
 
