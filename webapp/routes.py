@@ -239,7 +239,7 @@ def logs(project):
 		return render_template(
 			"logs.html",
 			project_name=project,
-			logs=str(proc.stdout).splitlines()
+			logs=str(proc.stdout).split("\\n")
 		)
 
 
