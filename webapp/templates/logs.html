@@ -5,8 +5,16 @@
 
 	<div class="logs">
 		{% for line in logs %}
-			<p>{{ line }}</p>
+			{% if loop.last %}
+				<p id="scrollTo">{{ line }}</p>
+			{% else %}
+				<p>{{ line }}</p>
+			{% endif %}
 		{% endfor %}
 	</div>
+
+	<script type="text/javascript">
+		document.querySelector("#scrollTo").scrollIntoView({behavior: "smooth", block: "end"})
+	</script>
 
 {% endblock %}

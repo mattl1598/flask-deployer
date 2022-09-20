@@ -13,8 +13,4 @@ div.logs {
 
 	overscroll-behavior-y: contain;
 	scroll-snap-type: y mandatory;
-
-	p:last-child {
-		scroll-snap-align: end;
-	}
 }
