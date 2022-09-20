@@ -238,6 +238,7 @@ def logs(project):
 		], check=True, capture_output=True)
 		return render_template(
 			"logs.html",
+			css="frontpage.css",
 			project_name=project,
 			logs=str(proc.stdout).split("\\n")
 		)
