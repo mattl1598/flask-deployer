@@ -12,7 +12,7 @@ div.logs {
 	border-radius: 0.5ch;
 
 	overscroll-behavior-y: contain;
-	scroll-snap-type: y proximity;
+	scroll-snap-type: y mandatory;
 
 	p:last-child {
 		scroll-snap-align: end;
